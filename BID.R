@@ -531,7 +531,6 @@ camden_within_points_pattern <- ppp(camden_within_coords[, 1], camden_within_coo
 density_map <- density(camden_within_points_pattern, sigma = 500)  
 density_raster <- density_map$im
 
-# Check for missing values in the raster
 if (any(!is.finite(density_raster))) {
 #replaving missing values with zero
     density_raster[!is.finite(density_raster)] <- 0
@@ -667,7 +666,7 @@ ggsave("Status_Comparison_Grouped_Bar_Chart.png", plot = grouped_bar_chart, widt
 print(grouped_bar_chart)
 
 
-par(mar = c(5, 4, 4, 2))  # Adjust margins
+par(mar = c(5, 4, 4, 2))  
 
 
 status_duration_data <- data.frame(
@@ -676,7 +675,7 @@ status_duration_data <- data.frame(
             na.omit(camden_points_without_polygon$statusDuration))
 )
 
-# Create a box plot using ggplot2
+
 box_plot <- ggplot(status_duration_data, aes(x = Status, y = Value, fill = Status)) +
   geom_boxplot() +
   labs(x = "Status", y = "Status Duration", title = "Status Duration Distribution") +
@@ -687,7 +686,6 @@ ggsave("box_plot_white_background.png", plot = box_plot, bg = "white")
 
 
 
-# Calculating the maximum values for each group
 max_values <- status_duration_data %>%
   group_by(Status) %>%
   summarize(max_value = max(Value, na.rm = TRUE))
